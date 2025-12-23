@@ -64,10 +64,10 @@ def generate_db_movie_document(location: str) -> list[MovieObject]:
                 movie_object.additional_video_files.append(additional_video_files.get_dict())
             elif (file.find(".jpg") > -1 or file.find(".png") > -1 or file.find(".jpeg") > -1):
                 photos = Photos()
+                photos.filename = file
                 with open(f"{location}/{folder}/{file}", "rb") as file:
                     photos.imageb64 = base64.b64encode(file.read()).decode('utf-8')
                     photos.thumbnail = "Y"
-                    photos.filename = file
                 movie_object.photos.append(photos.get_dict())
 
         file_arr.append(movie_object.get_dict())
