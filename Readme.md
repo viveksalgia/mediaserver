@@ -16,4 +16,4 @@ This project assumes that location shared to the crawler has only one more level
 The actual media file is having the same name as the title. There are no more media files containing the title within that folder.
 
 ## Contributors
-* Vivek Salgia*
+* Vivek Salgia
