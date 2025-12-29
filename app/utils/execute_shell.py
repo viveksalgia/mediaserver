@@ -24,6 +24,6 @@ def execute_cmd(cmd) -> shell_cmd_output:
     return ret_out.get_dict()
 
 if __name__ == "__main__":
-    response = execute_cmd(["ls", "/Volumes/Movies/Bollywood"])
+    response = execute_cmd(["ls"])
     json_response = json.dumps(response, indent=4)
     print(json_response)
