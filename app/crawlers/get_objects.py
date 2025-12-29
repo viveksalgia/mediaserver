@@ -72,8 +72,7 @@ def generate_db_movie_document(location: str) -> list[MovieObject]:
 
         file_arr.append(movie_object.get_dict())
 
-    with open("list.json", "w") as file:
-        json.dump(file_arr, file, indent=4)
+    return file_arr
 
 
 

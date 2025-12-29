@@ -10,6 +10,8 @@ The project runs on a few assumptions which will be listed down. The endpoints a
 ### Dependencies
 All the dependencies for this project are listed in requirements.txt
 1) Python runtime environment
+2) MongoDB with DB as movies
+3) MariaDB to maintain users
 
 ### Assumptions
 This project assumes that location shared to the crawler has only one more level and all the files are stored in the folder with title.
