@@ -3,7 +3,6 @@ Docstring for app.crawlers.get_objects
 Centralized place to get the objects from SFTP
 and convert them into MongoDB documents
 """
-import json
 import logging
 import uuid
 import base64

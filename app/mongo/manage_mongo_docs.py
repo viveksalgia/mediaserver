@@ -36,7 +36,7 @@ async def scan_and_insert_mongo_objects(request: mongo_refresh) \
             del_result = collection.delete_many({})
             ret_resp.deleted_count = del_result.deleted_count
             
-        response = collection.insert_many(generate_db_movie_document(location=request.location))
+        collection.insert_many(generate_db_movie_document(location=request.location))
         
         # result = collection.find({"_id" : f"{ret_resp.insert_ids[0]}"})
         result = collection.find()

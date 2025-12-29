@@ -1,11 +1,9 @@
-import json
 import logging
 from datetime import datetime
 from typing import Any
 
 from app.mongo import manage_mongo_docs
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 
 from app.utils.settings import settings
 from app.utils.schema import StatusResponse
