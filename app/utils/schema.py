@@ -140,3 +140,13 @@ class GetMoviePagesRequest(BaseModel):
     limit: int = Field(default=1, lt=100, Description="This field is the limit of number of records to be retrieved")
     offset: int | None = Field(default=0, Description="This field tells the offset to start the retrieval")
     query: dict = Field(default={}, Description="This is the query field to implement specific query filters")
+
+class Users(BaseModel):
+    user_id: int | None = Field(default=None, description="unique database id for the user")
+    user_uuid: str | None = Field(default=None, description="unique id for the user")
+    username: str = Field(..., description="User name")
+    password: str | None = Field(default=None, description="User Password")
+    email_address: str | None = Field(default=None, description="User Email Address")
+    first_name: str | None = Field(..., description="User's first name")
+    middle_name: str | None = Field(default=None, description="User's middle name")
+    last_name: str | None = Field(..., description="User's last name")

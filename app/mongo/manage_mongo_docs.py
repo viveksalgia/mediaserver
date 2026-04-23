@@ -1,13 +1,18 @@
+from typing import Annotated
+
 from app.utils.settings import settings
+from app.utils.security import validate_user
 from app.crawlers.get_objects import generate_db_movie_document
 from app.utils.schema import mongodb_object_operation_return, movie_uuid, mongo_refresh, \
-                             GetMoviePagesRequest, GetMoviePages, MovieObject
-from fastapi import APIRouter
+                             GetMoviePagesRequest, GetMoviePages, MovieObject, Users
+from fastapi import APIRouter, Depends
 
 import logging
 
 logger = logging.basicConfig(level=settings.log_level)
 logger = logging.getLogger(__name__)
+
+UserDep = Annotated[Users, Depends(validate_user)]
 
 router = APIRouter()
 
@@ -18,7 +23,7 @@ There are 2 input parameters:
     2) mode - This tells the app whether to delete the documents or append
 """
 @router.post("/refresh", response_model=mongodb_object_operation_return, summary="Update Mongodocs")
-async def scan_and_insert_mongo_objects(request: mongo_refresh) \
+async def scan_and_insert_mongo_objects(request: mongo_refresh, user: UserDep) \
     -> mongodb_object_operation_return:
     
     ret_resp = mongodb_object_operation_return(location=request.location)
@@ -56,7 +61,7 @@ There are 3 input parameters:
     3) 
 """
 @router.post("/movies", response_model=GetMoviePages, summary="Get Mongodocs")
-async def get_mongo_docs(request: GetMoviePagesRequest) \
+async def get_mongo_docs(request: GetMoviePagesRequest, user: UserDep) \
     -> GetMoviePages:
 
     logger.debug(f"Request Limit = {request.limit}")
@@ -91,7 +96,8 @@ async def get_mongo_docs(request: GetMoviePagesRequest) \
 
 """
 @router.put("/movies", summary="Update Mongodocs")
-async def update_mongo_doc(request: MovieObject):
+async def update_mongo_doc(request: MovieObject, user: UserDep) \
+     -> dict:
     ret_resp = MovieObject()
 
     filter = {"_id" : request.id}
