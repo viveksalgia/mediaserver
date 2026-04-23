@@ -27,6 +27,8 @@ class Settings:
         # logging configs
         log_level_str = os.getenv("LOG_LEVEL", "INFO").upper()
         self.log_level: int = getattr(logging, log_level_str, logging.INFO)
+        self.jwt_host: str | None = os.getenv("JWT_HOST")
+        self.jwt_port: int = int(os.getenv("JWT_PORT", "30491"))
 
         self.db_host: str | None = os.getenv("DB_HOST")
         self.db_port: int = int(os.getenv("DB_PORT", "3306"))
