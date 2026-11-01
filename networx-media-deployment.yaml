@@ -24,7 +24,7 @@ spec:
         - "mongodb.networx.com"
       containers:
       - name: networx-media
-        image: networx_media:1.0.0
+        image: mediaserver:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
@@ -35,3 +35,10 @@ spec:
           requests:
             memory: "128Mi"
             cpu: "100m"
+        volumeMounts:
+        - name: media-storage
+          mountPath: /data/media # Path inside the container
+      volumes:
+        - name: media-storage
+          persistentVolumeClaim:
+            claimName: networx-media-pvc

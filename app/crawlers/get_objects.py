@@ -46,8 +46,7 @@ def generate_db_movie_document(location: str) -> list[MovieObject]:
         logger.debug(f"Command to be executed - {' '.join(cmd)}")
 
         response_sub = execute_cmd(cmd=cmd)
-        logger.debug(f"Command Response - {'\n'.join(response_sub['std_out'])}")
-
+        
         for file in response_sub['std_out']:
             logger.debug(f"Folder name - {folder} and File is {file}")
             if (file.find(".mp4") > -1 or file.find(".mkv") > -1 or file.find(".avi") > -1) and file.find(folder) > -1:

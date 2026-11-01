@@ -1,0 +1,34 @@
+# remove dotenv from dockerignore
+
+# Docker Build
+docker build --no-cache  -t mediaserver:latest .
+
+# Run docker image with mounting env file and adding custom host and exposing ports
+docker run --add-host="mariadb.networx.com:172.20.10.236" --add-host="mongodb.networx.com:172.20.10.237" -p 8080:8080 --env-file ./.env mediaserver:latest
+
+# Save docker image
+docker save -o mediaserver.tar mediaserver:latest
+
+# Kubernetes commands
+
+# Create Namespace
+kubectl create namespace development
+
+# yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: development
+  labels:
+    name: development
+
+
+# Load local Docker image to Kubernetes
+sudo ctr -n k8s.io images import mediaserver.tar
+
+# Apply the deployment
+kubectl apply -f networx-media-deployment.yaml
+
+
+#Expose service
+kubectl expose deployment/networx-media-deployment.yaml --type=NodePort --port=8080 --target-port=8080 -n networx-app
